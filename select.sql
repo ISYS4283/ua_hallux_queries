@@ -139,3 +139,17 @@ FROM [UA_HALLUX].[dbo].[Order_Detail]
 WHERE Unit_Price > 10
 GROUP BY Item_Id
 ORDER BY 'count_orders' DESC
+
+-- Show a list of all songs with their albums.
+SELECT *
+FROM Album
+JOIN Song
+  ON Album.Album_Id = Song.Album_Id
+
+-- Show a list of all customers and their orders.
+-- Include customers that have not made an order.
+SELECT *
+FROM Customer c
+LEFT JOIN Order_Header oh
+  ON c.Customer_Id = oh.Customer_Id
+WHERE Order_Id IS NULL
