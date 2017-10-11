@@ -16,16 +16,6 @@ WHERE First_Name IS NOT NULL
 GROUP BY First_Name
 ORDER BY Name_Count DESC
 
--- How many customers have the same first name?
-SELECT SUM(Name_Count)
-FROM (
-	SELECT [First_Name], COUNT(*) AS 'Name_Count'
-	FROM [UA_HALLUX].[dbo].[Customer]
-	WHERE First_Name IS NOT NULL
-	GROUP BY First_Name
-	HAVING COUNT(*) > 1
-) subt
-
 -- What's the most common band genre?
 SELECT TOP 1 Genre_Id
 FROM [UA_HALLUX].[dbo].[Band_Genre]
@@ -139,6 +129,16 @@ FROM [UA_HALLUX].[dbo].[Order_Detail]
 WHERE Unit_Price > 10
 GROUP BY Item_Id
 ORDER BY 'count_orders' DESC
+
+-- How many customers have the same first name?
+SELECT SUM(Name_Count)
+FROM (
+	SELECT [First_Name], COUNT(*) AS 'Name_Count'
+	FROM [UA_HALLUX].[dbo].[Customer]
+	WHERE First_Name IS NOT NULL
+	GROUP BY First_Name
+	HAVING COUNT(*) > 1
+) subt
 
 -- Show a list of all songs with their albums.
 SELECT *
